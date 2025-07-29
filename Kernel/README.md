@@ -1,4 +1,4 @@
-# Jupyter-ISQL - A Jupyter Kernel which serves both the SQL and Python functionalities in single notebook session
+# Jupyter-ISQL --- A Jupyter Kernel which serves both the SQL and python functionalities in single notebook session
 
 ## Installation
 
