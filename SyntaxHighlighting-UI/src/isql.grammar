@@ -17,7 +17,7 @@ ParensStmt { Parens }
 @tokens {
   whitespace { "[ \t\r\n]+" }
   NewOne2 {"LOAD" | "CSV"}
-  NewOne1 {"SELECT" | "FROM" | "CREATE" | "TABLE" | "INSERT" | "INTO" | "DROP" | "ALL" | "select" | "from" | "create" | "table" | "insert"  | "into" | "drop" | "all" }
+  NewOne1 {"SELECT" | "FROM" | "CREATE" | "GROUP" | "ORDER" | "BY"|  "TABLE"  | "INSERT" | "INTO" | "DROP" | "ALL" | "select" | "from" | "create" | "table" | "insert"  | "into" | "drop" | "all" | "group" | "order" | "by" }
   Number { "[0-9]+" }
   Operator { "+" | "-" | "/" | "=" | "<" | ">" | "!" | "::" | "->" | ";" | "*" }
   Identifier { "[a-zA-Z][a-zA-Z0-9]*" }
