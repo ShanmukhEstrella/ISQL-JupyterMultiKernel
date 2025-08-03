@@ -1,3 +1,4 @@
+import io
 from ipykernel.kernelbase import Kernel
 from jupyter_client import KernelManager
 from queue import Empty
@@ -158,10 +159,13 @@ class ISQLRouterKernel(Kernel):
                             result_output += f"Stored result in variable '{varname}'\n"
                             self._python = self._launch_python_kernel()
                             python_kc = self._python["client"]
+                            csv_buffer = io.StringIO()
+                            df.to_csv(csv_buffer, index=False)
+                            csv_content = csv_buffer.getvalue()
                             inject_code = textwrap.dedent(f"""
                                 import pandas as pd
                                 import io
-                                {varname} = {df}
+                                {varname} = pd.read_csv(io.StringIO({csv_content!r}))
                             """)
                             msg_id = python_kc.execute(inject_code)
                             while True:
@@ -178,9 +182,25 @@ class ISQLRouterKernel(Kernel):
                                 formatted = '\t'.join(columns) + '\n' + '\n'.join(['\t'.join(map(str, row)) for row in rows])
                                 result_output += formatted + '\n'
                             else:
-                                self.cursor.execute(stmt)
-                                self.conn.commit()
-                                result_output += f"Executed: \"{stmt[0:len(stmt)-1]}\"\n"
+                                load_csv_match = re.match(r"LOAD\s+CSV\s+'(.+?)'\s+INTO\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*;", stmt, re.IGNORECASE | re.DOTALL)
+                                if load_csv_match:
+                                    csv_path, table_name = load_csv_match.groups()
+                                    try:
+                                        df = pd.read_csv(csv_path)
+                                        df.to_sql(table_name, self.conn, if_exists='replace', index=False)
+                                        result_output += f"Loaded CSV '{csv_path}' into table '{table_name}'\n"
+                                    except Exception as e:
+                                        return {
+                                            'status': 'error',
+                                            'execution_count': self.execution_count,
+                                            'ename': 'CSV‑Load‑Error',
+                                            'evalue': str(e),
+                                            'traceback': [str(e)],
+                                        }
+                                else:
+                                    self.cursor.execute(stmt)
+                                    self.conn.commit()
+                                    result_output += f"Executed: \"{stmt[0:len(stmt)-1]}\"\n"
                     except Exception as e:
                         result_output += f"Error in executing: \"{stmt[0:len(stmt)-1]}\" ---> {str(e)}\n"
                 if not silent:
