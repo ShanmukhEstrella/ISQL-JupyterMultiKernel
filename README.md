@@ -52,7 +52,8 @@ You can start using the ISQL Kernel now!!
 
 
 ### NOTEBOOK INTERFACE
-<img width="928" height="349" alt="image" src="https://github.com/user-attachments/assets/037a7230-96e8-4073-a983-41e9c3c0a77d" />
+<img width="1429" height="543" alt="image" src="https://github.com/user-attachments/assets/9e0d9cff-f5fe-4071-a993-5c31f92176bf" />
+
 
 
 
