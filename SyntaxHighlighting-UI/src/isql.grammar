@@ -1,11 +1,12 @@
 @top Program { Statement* }
 
 Statement {
- NewOneStmt1 | NumberStmt | OperatorStmt | IdentifierStmt | ParensStmt
+ NewOneStmt1 |  NewOneStmt2 | NumberStmt | OperatorStmt | IdentifierStmt | ParensStmt
 }
 
 
 NewOneStmt1 { NewOne1}
+NewOneStmt2 { NewOne2}
 NumberStmt { Number }
 OperatorStmt { Operator }
 IdentifierStmt { Identifier }
@@ -15,6 +16,7 @@ ParensStmt { Parens }
 
 @tokens {
   whitespace { "[ \t\r\n]+" }
+  NewOne2 {"LOAD" | "CSV"}
   NewOne1 {"SELECT" | "FROM" | "CREATE" | "TABLE" | "INSERT" | "INTO" | "DROP" | "ALL" | "select" | "from" | "create" | "table" | "insert"  | "into" | "drop" | "all" }
   Number { "[0-9]+" }
   Operator { "+" | "-" | "/" | "=" | "<" | ">" | "!" | "::" | "->" | ";" | "*" }
