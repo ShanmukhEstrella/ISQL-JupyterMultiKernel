@@ -1,0 +1,23 @@
+@top Program { Statement* }
+
+Statement {
+ NewOneStmt1 | NumberStmt | OperatorStmt | IdentifierStmt | ParensStmt
+}
+
+
+NewOneStmt1 { NewOne1}
+NumberStmt { Number }
+OperatorStmt { Operator }
+IdentifierStmt { Identifier }
+ParensStmt { Parens }
+
+@skip { whitespace }
+
+@tokens {
+  whitespace { "[ \t\r\n]+" }
+  NewOne1 {"SELECT" | "FROM" | "CREATE" | "TABLE" | "INSERT" | "INTO" | "DROP" | "ALL" | "select" | "from" | "create" | "table" | "insert"  | "into" | "drop" | "all" }
+  Number { "[0-9]+" }
+  Operator { "+" | "-" | "/" | "=" | "<" | ">" | "!" | "::" | "->" | ";" | "*" }
+  Identifier { "[a-zA-Z][a-zA-Z0-9]*" }
+  Parens { "(" | ")" }
+}
