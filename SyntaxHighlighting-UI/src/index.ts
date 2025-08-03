@@ -11,6 +11,7 @@ import { Tag, styleTags, tags as t } from '@lezer/highlight';
 import { parser } from './isql.grammar.js';
 
 const myNewTag1: Tag = Tag.define();
+const myNewTag2: Tag = Tag.define();
 
 const ISQLLanguage = LRLanguage.define({
   parser: parser.configure({
@@ -19,6 +20,7 @@ const ISQLLanguage = LRLanguage.define({
         Keyword: t.keyword,
         Number: t.number,
         NewOne1: myNewTag1,
+        NewOne2: myNewTag2,
         Operator: t.operator,
         Identifier: t.variableName,
         Parens: t.paren
@@ -28,11 +30,13 @@ const ISQLLanguage = LRLanguage.define({
 });
 
 const isqlLightStyle = HighlightStyle.define([
-  { tag: myNewTag1, color: '#C11C84', fontWeight: 'bold' }
+  { tag: myNewTag1, color: '#C11C84', fontWeight: 'bold' },
+  { tag: myNewTag2, color: '#0c4a87', fontWeight: 'bold' }
 ]);
 
 const isqlDarkStyle = HighlightStyle.define([
   { tag: myNewTag1, color: '#fd3db5', fontWeight: 'bold' },
+  { tag: myNewTag2, color: '#61dafb', fontWeight: 'bold' }
 ]);
 
 
