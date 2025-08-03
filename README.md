@@ -48,7 +48,7 @@ You can start using the ISQL Kernel now!!
 
 
 ### HOME INTERFACE
-<img width="855" height="542" alt="image" src="https://github.com/user-attachments/assets/03fd7bf0-e071-405a-91f4-c9729c6d5b2e" />
+<img width="1182" height="590" alt="image" src="https://github.com/user-attachments/assets/7989ece5-10c4-4681-8e2c-5add28875e7d" />
 
 
 ### NOTEBOOK INTERFACE
